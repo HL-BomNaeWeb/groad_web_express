@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/', async (req, res, next) => {
   try {
+    res.sendFile(path.join(__dirname, '../public', 'index.html'));
     const users = await User.findAll();
     res.render('sequelize', { users });
   } catch (err) {

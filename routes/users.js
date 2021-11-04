@@ -22,7 +22,7 @@ router.route('/')
         password: req.body.password,
       });
       console.log(user);
-      res.status(201).json(user);
+      res.send(user);
     } catch (err) {
       console.error(err);
       next(err);

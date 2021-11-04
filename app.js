@@ -7,6 +7,7 @@ const { sequelize } = require('./models');
 
 const indexRouter = require('./routes');
 const usersRouter = require('./routes/users');
+const noticesRouter = require('./routes/notices');
 
 
 const app = express();
@@ -29,7 +30,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/notices', noticesRouter);
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
+app.use(require('connect-history-api-fallback')());
 
 app.use((req, res, next) => {
     const error = new Error(`${res.method} ${req.url} 라우터가 없습니다.`);
